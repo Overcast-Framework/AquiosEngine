@@ -26,6 +26,8 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
         {
             auto* self = static_cast<Aquios::Window*>(glfwGetWindowUserPointer(m_Window));
             AQ_CORE_ASSERT(self != nullptr, "could not get window from user ptr");
+            self->m_Data.Width = width;
+            self->m_Data.Height = height;
             self->SendEvent<WindowResizeEvent>(std::make_shared<WindowResizeEvent>(width, height));
         }
     );
@@ -49,6 +51,14 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
 
             self->SendEvent<MouseMoveEvent>(std::make_shared<MouseMoveEvent>((int)x, (int)y));
         });
+
+    glfwSetScrollCallback(this->m_WindowHandle, [](GLFWwindow* m_Window, double x, double y) -> void
+        {
+            auto* self = static_cast<Aquios::Window*>(glfwGetWindowUserPointer(m_Window));
+            AQ_CORE_ASSERT(self != nullptr, "could not get window from user ptr");
+
+            self->SendEvent<MouseScrollEvent>(std::make_shared<MouseScrollEvent>((int)x, (int)y));
+        });
     
     glfwSetKeyCallback(this->m_WindowHandle, [](GLFWwindow* m_Window, int key, int scancode, int action, int mods) -> void
         {
@@ -59,6 +69,14 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
                 self->SendEvent<KeyPressedEvent>(std::make_shared<KeyPressedEvent>(key, 0));
             else
                 self->SendEvent<KeyReleasedEvent>(std::make_shared<KeyReleasedEvent>(key));
+        });
+
+    glfwSetCharCallback(this->m_WindowHandle, [](GLFWwindow* m_Window, unsigned int codepoint) -> void
+        {
+            auto* self = static_cast<Aquios::Window*>(glfwGetWindowUserPointer(m_Window));
+            AQ_CORE_ASSERT(self != nullptr, "could not get window from user ptr");
+
+            self->SendEvent<TextInputEvent>(std::make_shared<TextInputEvent>(codepoint));
         });
 
     glfwSetMouseButtonCallback(this->m_WindowHandle, [](GLFWwindow* m_Window, int btn, int action, int mods) -> void

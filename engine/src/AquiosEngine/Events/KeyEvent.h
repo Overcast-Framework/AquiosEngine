@@ -46,6 +46,25 @@ namespace Aquios
 		int m_RepeatCount;
 	};
 
+	class AQUIOS_API TextInputEvent : public KeyEvent
+	{
+	public:
+		TextInputEvent(int keycode) : KeyEvent(keycode)
+		{
+		}
+
+		const char* GetName() const override
+		{
+			return "TextInputEvent";
+		}
+
+		std::string ToString() const override
+		{
+			return "TextInputEvent(keycode " + std::to_string(m_KeyCode) + ")";
+		}
+	private:
+	};
+
 	class AQUIOS_API KeyReleasedEvent : public KeyEvent
 	{
 	public:

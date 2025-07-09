@@ -9,8 +9,12 @@
 
 namespace Aquios
 {
+	Application* Application::s_Instance = nullptr;
+
 	Application::Application()
 	{
+		AQ_CORE_ASSERT(!s_Instance, "Application already exists");
+		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
 
 		m_Window->Subscribe<WindowCloseEvent>(this);
@@ -20,6 +24,8 @@ namespace Aquios
 		m_Window->Subscribe<MouseMoveEvent>(this);
 		m_Window->Subscribe<MousePressedEvent>(this);
 		m_Window->Subscribe<MouseReleasedEvent>(this);
+		m_Window->Subscribe<MouseScrollEvent>(this);
+		m_Window->Subscribe<TextInputEvent>(this);
 		m_Window->Subscribe<KeyPressedEvent>(this);
 		m_Window->Subscribe<KeyReleasedEvent>(this);
 	}

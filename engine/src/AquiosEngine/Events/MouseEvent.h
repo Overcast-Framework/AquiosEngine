@@ -89,4 +89,29 @@ namespace Aquios
 	private:
 		int m_X, m_Y;
 	};
+
+	class AQUIOS_API MouseScrollEvent : public MouseEvent
+	{
+	public:
+		MouseScrollEvent(int x, int y) : MouseEvent(0), m_X(x), m_Y(y)
+		{
+		}
+
+		inline int GetX() const { return m_X; }
+		inline int GetY() const { return m_Y; }
+
+		const char* GetName() const override
+		{
+			return "MouseScrollEvent";
+		}
+
+		std::string ToString() const override
+		{
+			std::ostringstream oss;
+			oss << "MouseScrollEvent(" << m_X << "; " << m_Y << ")";
+			return oss.str();
+		}
+	private:
+		int m_X, m_Y;
+	};
 }
