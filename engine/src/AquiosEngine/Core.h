@@ -1,10 +1,17 @@
 #pragma once
+#define AQUIOS_API 
+
+// hack:
+#define AQ_PLATFORM_WINDOWS
+
 #ifdef AQ_PLATFORM_WINDOWS
-	#ifdef AQUIOSENGINE_EXPORTS
+	/*#ifdef AQUIOSENGINE_EXPORTS
 		#define AQUIOS_API __declspec(dllexport)
+		#define IMGUI_API __declspec(dllexport)
 	#else
 		#define AQUIOS_API __declspec(dllimport)
-	#endif
+		#define IMGUI_API __declspec(dllimport)
+	#endif*/
 #else
 	#error AquiosEngine only supports Windows devices!
 #endif

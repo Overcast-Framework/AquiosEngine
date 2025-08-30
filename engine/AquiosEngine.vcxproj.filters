@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{2DAB880B-99B4-887C-2230-9F7C8E38947C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AquiosEngine">
+      <UniqueIdentifier>{242B4205-1024-6157-3956-46DC25AE4063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AquiosEngine\Events">
+      <UniqueIdentifier>{88667B5A-F49D-C3F1-FDA7-2715695EEAEA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AquiosEngine\ImGui">
+      <UniqueIdentifier>{4E6B2FBD-3A65-580F-23D2-EE1F0F6BBE7B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AquiosEngine\Platform">
+      <UniqueIdentifier>{F82F0D03-64F2-408D-ADA2-CF1919A4196B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AquiosEngine\Platform\OpenGL">
+      <UniqueIdentifier>{2C32A54A-1883-908C-41E7-7E4E2D9723F6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AquiosEngine\Platform\Windows">
+      <UniqueIdentifier>{325267F7-9EC0-BC76-E7A9-77765357B212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AquiosEngine\Renderer">
+      <UniqueIdentifier>{4A37EADD-B6F9-1D68-FFA9-ACF46BABF645}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendors">
+      <UniqueIdentifier>{86EAAF72-F2C9-2E0E-FBE1-B9E46740956F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendors\glad">
+      <UniqueIdentifier>{4D41528B-39A4-E12F-E229-1AE6CE6BADB2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="vendors\glad\src">
+      <UniqueIdentifier>{E4DD1782-D0D6-36D4-F908-1C59E56016E0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\AquiosEngine.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Application.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Core.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\EntryPoint.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\EventSystem.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Events\ApplicationEvent.h">
+      <Filter>src\AquiosEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Events\Event.h">
+      <Filter>src\AquiosEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Events\KeyEvent.h">
+      <Filter>src\AquiosEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Events\MouseEvent.h">
+      <Filter>src\AquiosEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Events\WindowEvent.h">
+      <Filter>src\AquiosEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\IDestructable.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\ImGui\ImGuiLayer.h">
+      <Filter>src\AquiosEngine\ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Input.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\KeyCodes.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Layer.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\LayerStack.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Log.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\MouseButtonCodes.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\GLGPUBuffer.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\Windows\WindowsInput.h">
+      <Filter>src\AquiosEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\Windows\WindowsWindow.h">
+      <Filter>src\AquiosEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\CommandList.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Commands.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Format.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Framebuffer.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\GPUBuffer.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\GraphicsContext.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Pipeline.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\RenderPass.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Shader.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Swapchain.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Texture.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Vertex.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\VertexLayout.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Window.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\aqpch.h">
+      <Filter>src</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\vendors\glad\src\glad.c">
+      <Filter>vendors\glad\src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Application.cpp">
+      <Filter>src\AquiosEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\ImGui\ImGuiBuild.cpp">
+      <Filter>src\AquiosEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\ImGui\ImGuiLayer.cpp">
+      <Filter>src\AquiosEngine\ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Layer.cpp">
+      <Filter>src\AquiosEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\LayerStack.cpp">
+      <Filter>src\AquiosEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Log.cpp">
+      <Filter>src\AquiosEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\GLGPUBuffer.cpp">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\Windows\WindowsInput.cpp">
+      <Filter>src\AquiosEngine\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\Windows\WindowsWindow.cpp">
+      <Filter>src\AquiosEngine\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\aqpch.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
