@@ -1,6 +1,8 @@
 #include "aqpch.h"
 #include "WindowsWindow.h"
 
+#include <AquiosEngine/Platform/OpenGL/OpenGLContext.h>
+
 bool Aquios::Windows::WindowsWindow::s_IsGLFWInitialized;
 
 Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(data)
@@ -13,10 +15,9 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
     }
 
     this->m_WindowHandle = glfwCreateWindow(data.Width, data.Height, data.Title.c_str(), nullptr, nullptr);
-    glfwMakeContextCurrent(this->m_WindowHandle);
 
-    int status = gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-    AQ_CORE_ASSERT(status, "couldn't initialize GLAD");
+    m_Context = new OpenGL::OpenGLContext(m_WindowHandle);
+    m_Context->Init();
 
     glfwSetWindowUserPointer(this->m_WindowHandle, this);
     SetVSync(true);
@@ -28,7 +29,7 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
             AQ_CORE_ASSERT(self != nullptr, "could not get window from user ptr");
             self->m_Data.Width = width;
             self->m_Data.Height = height;
-            self->SendEvent<WindowResizeEvent>(std::make_shared<WindowResizeEvent>(width, height));
+            self->SendEvent<WindowResizeEvent>(std::make_shared<WindowResizeEvent>(self, width, height));
         }
     );
 
@@ -39,9 +40,9 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
             AQ_CORE_ASSERT(self != nullptr, "could not get window from user ptr");
 
             if(focused)
-                self->SendEvent<WindowFocusEvent>(std::make_shared<WindowFocusEvent>());
+                self->SendEvent<WindowFocusEvent>(std::make_shared<WindowFocusEvent>(self));
             else
-                self->SendEvent<WindowLostFocusEvent>(std::make_shared<WindowLostFocusEvent>());
+                self->SendEvent<WindowLostFocusEvent>(std::make_shared<WindowLostFocusEvent>(self));
         });
 
     glfwSetCursorPosCallback(this->m_WindowHandle, [](GLFWwindow* m_Window, double x, double y) -> void
@@ -105,11 +106,11 @@ void Aquios::Windows::WindowsWindow::OnUpdate()
 {
     if (glfwWindowShouldClose(this->m_WindowHandle))
     {
-        this->SendEvent<WindowCloseEvent>(std::make_shared<WindowCloseEvent>());
+        this->SendEvent<WindowCloseEvent>(std::make_shared<WindowCloseEvent>(this));
     }
 
     glfwPollEvents();
-    glfwSwapBuffers(this->m_WindowHandle);
+    m_Context->SwapBuffers();
 }
 
 unsigned int Aquios::Windows::WindowsWindow::GetWidth() const

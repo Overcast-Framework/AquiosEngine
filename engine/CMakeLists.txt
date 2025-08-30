@@ -3,12 +3,7 @@ file(GLOB_RECURSE SOURCE_FILES "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp")
 
 set(SOURCES ${SOURCE_FILES} ../vendors/glad/src/glad.c ${HEADER_FILES})
 
-add_library(AquiosEngine SHARED ${SOURCES} "src/AquiosEngine/EventSystem.h" "src/AquiosEngine/Events/Event.h" "src/AquiosEngine/Events/KeyEvent.h" "src/AquiosEngine/Events/MouseEvent.h" "src/AquiosEngine/Events/ApplicationEvent.h" "src/AquiosEngine/Events/WindowEvent.h" "src/aqpch.h" "src/aqpch.cpp" "src/AquiosEngine/Window.h" "src/AquiosEngine/Platform/Windows/WindowsWindow.h" "src/AquiosEngine/Platform/Windows/WindowsWindow.cpp" "src/AquiosEngine/Layer.h" "src/AquiosEngine/LayerStack.h" "src/AquiosEngine/LayerStack.cpp" "src/AquiosEngine/ImGui/ImGuiLayer.h" "src/AquiosEngine/ImGui/ImGuiLayer.cpp" "src/AquiosEngine/Platform/OpenGL/ImGuiOpenGLRenderer.cpp" "src/AquiosEngine/Platform/OpenGL/ImGuiOpenGLRenderer.h" )
-
-add_custom_command(TARGET AquiosEngine POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-        $<TARGET_FILE:AquiosEngine>
-        ${CMAKE_BINARY_DIR}/sandbox)
+add_library(AquiosEngine STATIC ${SOURCES} "src/AquiosEngine/EventSystem.h" "src/AquiosEngine/Events/Event.h" "src/AquiosEngine/Events/KeyEvent.h" "src/AquiosEngine/Events/MouseEvent.h" "src/AquiosEngine/Events/ApplicationEvent.h" "src/AquiosEngine/Events/WindowEvent.h" "src/aqpch.h" "src/aqpch.cpp" "src/AquiosEngine/Window.h" "src/AquiosEngine/Platform/Windows/WindowsWindow.h" "src/AquiosEngine/Platform/Windows/WindowsWindow.cpp" "src/AquiosEngine/Layer.h" "src/AquiosEngine/LayerStack.h" "src/AquiosEngine/LayerStack.cpp" "src/AquiosEngine/ImGui/ImGuiLayer.h" "src/AquiosEngine/ImGui/ImGuiLayer.cpp" "src/AquiosEngine/Input.h" "src/AquiosEngine/Platform/Windows/WindowsInput.h" "../vendors/imgui/imgui.cpp" "../vendors/imgui/imgui_draw.cpp" "../vendors/imgui/imgui_tables.cpp" "../vendors/imgui/imgui_widgets.cpp" "../vendors/imgui/imgui_demo.cpp")
 
 target_compile_definitions(AquiosEngine PRIVATE
     $<$<CONFIG:Debug>:DEBUG>
@@ -49,4 +44,6 @@ foreach(FILE ${SOURCE_FILES})
 endforeach()
 
 find_package(OpenGL REQUIRED)
-target_link_libraries(AquiosEngine PRIVATE glfw glm imgui spdlog OpenGL::GL)
+target_link_libraries(AquiosEngine
+    PUBLIC glfw glm spdlog OpenGL::GL
+)

@@ -4,7 +4,7 @@ add_executable(Sandbox ${CPP_SOURCES})
 
 target_link_libraries(Sandbox PRIVATE AquiosEngine)
 
-target_include_directories(Sandbox PRIVATE ../engine/src ../vendors/glfw/include ../vendors/spdlog/include)
+target_include_directories(Sandbox PRIVATE ../engine/src ../vendors/glfw/include ../vendors/imgui ../vendors/glm ../vendors/spdlog/include)
 
 target_compile_options(Sandbox PRIVATE /utf-8)
 

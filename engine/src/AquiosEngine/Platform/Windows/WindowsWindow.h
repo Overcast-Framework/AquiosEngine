@@ -9,6 +9,7 @@
 #include <AquiosEngine/Events/KeyEvent.h>
 #include <AquiosEngine/Events/ApplicationEvent.h>
 #include <AquiosEngine/Window.h>
+#include <AquiosEngine/Renderer/GraphicsContext.h>
 #include <AquiosEngine/Log.h>
 
 namespace Aquios::Windows
@@ -22,6 +23,8 @@ namespace Aquios::Windows
 		~WindowsWindow();
 
 		HWND GetWin32Handle();
+		void* GetWindowHandle() const override { return m_WindowHandle; }
+
 		void OnUpdate() override;
 
 		unsigned int GetWidth() const override;
@@ -31,6 +34,8 @@ namespace Aquios::Windows
 		bool IsVSync() const override;
 	private:
 		GLFWwindow* m_WindowHandle = nullptr;
+		GraphicsContext* m_Context = nullptr;
+
 		static bool s_IsGLFWInitialized;
 	};
 }

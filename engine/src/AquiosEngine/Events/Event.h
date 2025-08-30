@@ -1,5 +1,6 @@
 #pragma once
 #include <AquiosEngine/Core.h>
+#include <sstream>
 
 namespace Aquios
 {
@@ -12,4 +13,9 @@ namespace Aquios
 		virtual const char* GetName() const = 0;
 		virtual std::string ToString() const = 0;
 	};
+
+	inline std::ostream& operator<<(std::ostream& os, std::shared_ptr<Event> e)
+	{
+		return os << e->ToString();
+	}
 }
