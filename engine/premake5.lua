@@ -1,14 +1,54 @@
 project "AquiosEngine"
    kind "StaticLib"
    language "C++"
-   files { "src/**.cpp", "src/**.h", "../vendors/glad/src/glad.c" }
+   cppdialect "C++20"
+   pchheader "aqpch.h"
+   pchsource "src/aqpch.cpp"
+
+   targetdir ("../bin/" .. "%{cfg.buildcfg}" .. "/%{prj.name}")
+   objdir ("../bin-int/" .. "%{cfg.buildcfg}" .. "/%{prj.name}")
+
+   files { 
+    -- Engine Project Files
+    "src/**.cpp", 
+    "src/**.h", 
+
+    -- GLAD
+    "../vendors/glad/src/glad.c"
+   }
+
+   filter "files:**.c"
+      flags { "NoPCH" }
+   filter {}
+
    defines { "GLFW_INCLUDE_NONE" }
-   targetdir "bin/%{cfg.buildcfg}"
+
+   includedirs {
+    "src",
+    "../vendors/glad/include",
+    "../vendors/glfw/include",
+    "../vendors/glm",
+    "../vendors/imgui",
+    "../vendors/spdlog/include"
+   }
 
    libdirs {
-    ""
+    "../bin/" .. "%{cfg.buildcfg}" .. "glfw",
+    "../bin/" .. "%{cfg.buildcfg}" .. "imgui",
+    "../bin/" .. "%{cfg.buildcfg}" .. "spdlog",
+    "../vendors/spdlog/build/Debug"
    }
-   links { "glfw3", "spdlog", "opengl32" }
+
+   links { "glfw", "imgui", "opengl32" }
+
+   filter "action:vs*"
+      buildoptions { "/utf-8" }
+
+   filter "configurations:Debug"
+      links ( "spdlogd" )
+
+   filter "configurations:Release"
+      links ( "spdlog" )
 
    filter "configurations:Debug"
       defines { "DEBUG" }

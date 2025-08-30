@@ -1,6 +1,9 @@
 #pragma once
 #define AQUIOS_API 
 
+// hack:
+#define AQ_PLATFORM_WINDOWS
+
 #ifdef AQ_PLATFORM_WINDOWS
 	/*#ifdef AQUIOSENGINE_EXPORTS
 		#define AQUIOS_API __declspec(dllexport)
