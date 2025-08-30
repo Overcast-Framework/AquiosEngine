@@ -2,6 +2,7 @@
 #include "AquiosEngine/Core.h"
 #include <AquiosEngine/Window.h>
 #include <AquiosEngine/LayerStack.h>
+#include <AquiosEngine/ImGui/ImGuiLayer.h>
 
 namespace Aquios
 {
@@ -19,8 +20,12 @@ namespace Aquios
 
 		static inline Application& Get() { return *s_Instance; }
 		inline Window& GetWindow() { return *m_Window; }
+		inline Window& GetActiveWindow() { return *m_ActiveWindow; }
+
 	private:
 		std::unique_ptr<Window> m_Window = nullptr;
+		ImGuiLayer* m_ImGuiLayer = nullptr;
+		Window* m_ActiveWindow = nullptr;
 		bool m_Running = false;
 		LayerStack m_LayerStack;
 

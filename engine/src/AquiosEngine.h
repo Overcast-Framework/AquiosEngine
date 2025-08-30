@@ -3,6 +3,8 @@
 
 #include "AquiosEngine/Application.h"
 #include "AquiosEngine/Log.h"
+#include "AquiosEngine/KeyCodes.h"
+#include "AquiosEngine/MouseButtonCodes.h"
 #include "AquiosEngine/Layer.h"
 
 #include "AquiosEngine/ImGui/ImGuiLayer.h"

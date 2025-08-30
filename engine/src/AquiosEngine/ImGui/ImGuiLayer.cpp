@@ -2,7 +2,8 @@
 #include "ImGuiLayer.h"
 
 #include <imgui.h>
-#include <AquiosEngine/Platform/OpenGL/ImGuiOpenGLRenderer.h>
+#include "backends/imgui_impl_glfw.h"
+#include "backends/imgui_impl_opengl3.h"
 
 #include <AquiosEngine/Application.h>
 
@@ -145,8 +146,12 @@ namespace Aquios
         }
     }
 
+    static bool s_ImGuiInitialized = false;
+
 	void ImGuiLayer::OnAttach()
 	{
+        AQ_CORE_ASSERT(!s_ImGuiInitialized, "imgui was already initialized");
+        s_ImGuiInitialized = true;
 		ImGui::SetCurrentContext(ImGui::CreateContext());
 		ImGui::StyleColorsDark();
 
@@ -154,36 +159,52 @@ namespace Aquios
         io.Fonts->AddFontDefault();
 		io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
 		io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
+        io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+        io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
+        auto& window = Application::Get().GetWindow();
+        ImGui_ImplGlfw_InitForOpenGL((GLFWwindow*)window.GetWindowHandle(), true);
         ImGui_ImplOpenGL3_Init("#version 410");
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
-
+        ImGui_ImplOpenGL3_Shutdown();
+        ImGui_ImplGlfw_Shutdown();
+        ImGui::DestroyContext();
 	}
 
-	void ImGuiLayer::OnUpdate()
-	{
-        ImGuiIO& io = ImGui::GetIO();
+    void ImGuiLayer::OnImGuiRender()
+    {
+        ImGui::ShowDemoWindow();
+    }
 
+    void ImGuiLayer::Begin()
+    {
+        ImGui_ImplOpenGL3_NewFrame();
+        ImGui_ImplGlfw_NewFrame();
+        ImGui::NewFrame();
+    }
+
+    void ImGuiLayer::End()
+    {
+        ImGuiIO& io = ImGui::GetIO();
         auto& app = Application::Get();
         io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
-        float time = (float)glfwGetTime();
-        io.DeltaTime = m_Time > 0.0f ? (time-m_Time) : (1.0f/60.0f);
-        m_Time = time;
-
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui::NewFrame();
-
-        ImGui::ShowDemoWindow();
-
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-	}
 
-	void ImGuiLayer::OnEvent(std::shared_ptr<Event>& e)
+        if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+        {
+            auto* backup_cur_ctx = glfwGetCurrentContext();
+            ImGui::UpdatePlatformWindows();
+            ImGui::RenderPlatformWindowsDefault();
+            glfwMakeContextCurrent(backup_cur_ctx);
+        }
+    }
+
+	/*void ImGuiLayer::OnEvent(std::shared_ptr<Event>& e)
 	{
         ImGuiIO& io = ImGui::GetIO();
 
@@ -229,5 +250,5 @@ namespace Aquios
             if (io.WantCaptureMouse)
                 e->IsHandled = true;
         }
-	}
+	}*/
 }

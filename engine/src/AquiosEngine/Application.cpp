@@ -5,6 +5,7 @@
 #include <AquiosEngine/Events/KeyEvent.h>
 #include <AquiosEngine/Events/ApplicationEvent.h>
 #include <AquiosEngine/Log.h>
+#include <AquiosEngine/Input.h>
 #include <glad/glad.h>
 
 namespace Aquios
@@ -16,6 +17,9 @@ namespace Aquios
 		AQ_CORE_ASSERT(!s_Instance, "Application already exists");
 		s_Instance = this;
 		m_Window = std::unique_ptr<Window>(Window::Create());
+		m_ActiveWindow = m_Window.get();
+
+		Input::Init();
 
 		m_Window->Subscribe<WindowCloseEvent>(this);
 		m_Window->Subscribe<WindowResizeEvent>(this);
@@ -28,6 +32,9 @@ namespace Aquios
 		m_Window->Subscribe<TextInputEvent>(this);
 		m_Window->Subscribe<KeyPressedEvent>(this);
 		m_Window->Subscribe<KeyReleasedEvent>(this);
+
+		m_ImGuiLayer = new ImGuiLayer();
+		PushOverlay(m_ImGuiLayer);
 	}
 
 	Application::~Application()
@@ -39,6 +46,11 @@ namespace Aquios
 		if (dynamic_cast<WindowCloseEvent*>(event.get()))
 		{
 			m_Running = false;
+		}
+		else if (auto focusEvent = dynamic_cast<WindowFocusEvent*>(event.get()))
+		{
+			m_ActiveWindow = &focusEvent->GetWindow();
+			AQ_CORE_INFO("current active window: {0}", m_ActiveWindow->m_Data.Title);
 		}
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
@@ -65,11 +77,16 @@ namespace Aquios
 
 		while (m_Running)
 		{
-			glClearColor(1, 0, 1, 1);
+			glClearColor(0.15f, 0.15f, 0.15f, 1);
 			glClear(GL_COLOR_BUFFER_BIT);
 
 			for (Layer* layer : m_LayerStack)
 				layer->OnUpdate();
+
+			m_ImGuiLayer->Begin();
+			for (Layer* layer : m_LayerStack)
+				layer->OnImGuiRender();
+			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate();
 		}

@@ -1,3 +1,4 @@
+#pragma once
 #include <AquiosEngine/Events/Event.h>
 
 namespace Aquios

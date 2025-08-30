@@ -1,10 +1,23 @@
+#include <aqpch.h>
 #include <AquiosEngine.h>
+#include <imgui.h>
 
 class ExampleLayer : public Aquios::Layer
 {
 public:
 	ExampleLayer()
 		: Aquios::Layer("Example")
+	{
+	}
+
+	virtual void OnImGuiRender() override
+	{
+		ImGui::Begin("Heyu");
+		ImGui::Text("helo");
+		ImGui::End();
+	}
+
+	virtual void OnAttach() override
 	{
 	}
 
@@ -25,7 +38,6 @@ public:
 	Sandbox()
 	{
 		PushLayer(new ExampleLayer());
-		PushOverlay(new Aquios::ImGuiLayer());
 	}
 
 	~Sandbox()

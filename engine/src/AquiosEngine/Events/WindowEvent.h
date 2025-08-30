@@ -3,12 +3,16 @@
 
 namespace Aquios
 {
+	class Window;
+
 	class AQUIOS_API WindowEvent : public Event
 	{
 	public:
-		WindowEvent()
+		WindowEvent(Window* window) : m_Window(window)
 		{
 		}
+
+		inline Window& GetWindow() { return *m_Window; }
 
 		const char* GetName() const override
 		{
@@ -19,6 +23,8 @@ namespace Aquios
 		{
 			return "WindowEvent";
 		}
+
+		Window* m_Window;
 	};
 
 	class AQUIOS_API WindowResizeEvent : public WindowEvent
@@ -27,7 +33,7 @@ namespace Aquios
 		inline int GetNewWidth() const { return m_Width; }
 		inline int GetNewHeight() const { return m_Height; }
 
-		WindowResizeEvent(int w, int h) : m_Width(w), m_Height(h)
+		WindowResizeEvent(Window* window, int w, int h) : WindowEvent(window), m_Width(w), m_Height(h)
 		{
 		}
 
@@ -49,7 +55,7 @@ namespace Aquios
 	class AQUIOS_API WindowCloseEvent : public WindowEvent
 	{
 	public:
-		WindowCloseEvent()
+		WindowCloseEvent(Window* window) : WindowEvent(window)
 		{
 		}
 
@@ -69,7 +75,7 @@ namespace Aquios
 	class AQUIOS_API WindowFocusEvent : public WindowEvent // im gonna want to add the window class to these later maybe
 	{
 	public:
-		WindowFocusEvent()
+		WindowFocusEvent(Window* window) : WindowEvent(window)
 		{
 		}
 
@@ -89,7 +95,7 @@ namespace Aquios
 	class AQUIOS_API WindowLostFocusEvent : public WindowEvent
 	{
 	public:
-		WindowLostFocusEvent()
+		WindowLostFocusEvent(Window* window) : WindowEvent(window)
 		{
 		}
 
@@ -112,7 +118,7 @@ namespace Aquios
 		inline int GetX() const { return m_X; }
 		inline int GetY() const { return m_Y; }
 
-		WindowMovedEvent(int x, int y) : m_X(x), m_Y(y)
+		WindowMovedEvent(Window* window, int x, int y) : WindowEvent(window), m_X(x), m_Y(y)
 		{
 		}
 
