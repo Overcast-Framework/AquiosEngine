@@ -176,7 +176,7 @@ namespace Aquios
 
     void ImGuiLayer::OnImGuiRender()
     {
-        ImGui::ShowDemoWindow();
+
     }
 
     void ImGuiLayer::Begin()

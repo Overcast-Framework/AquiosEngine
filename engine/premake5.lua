@@ -5,6 +5,8 @@ project "AquiosEngine"
    pchheader "aqpch.h"
    pchsource "src/aqpch.cpp"
 
+   multiprocessorcompile ("On")
+
    targetdir ("../bin/" .. "%{cfg.buildcfg}" .. "/%{prj.name}")
    objdir ("../bin-int/" .. "%{cfg.buildcfg}" .. "/%{prj.name}")
 
@@ -18,7 +20,7 @@ project "AquiosEngine"
    }
 
    filter "files:**.c"
-      flags { "NoPCH" }
+      enablepch "Off"
    filter {}
 
    defines { "GLFW_INCLUDE_NONE" }
@@ -36,19 +38,12 @@ project "AquiosEngine"
     "../bin/" .. "%{cfg.buildcfg}" .. "glfw",
     "../bin/" .. "%{cfg.buildcfg}" .. "imgui",
     "../bin/" .. "%{cfg.buildcfg}" .. "spdlog",
-    "../vendors/spdlog/build/Debug"
    }
 
-   links { "glfw", "imgui", "opengl32" }
+   links { "glfw", "imgui", "opengl32", "spdlog" }
 
    filter "action:vs*"
       buildoptions { "/utf-8" }
-
-   filter "configurations:Debug"
-      links ( "spdlogd" )
-
-   filter "configurations:Release"
-      links ( "spdlog" )
 
    filter "configurations:Debug"
       defines { "DEBUG" }

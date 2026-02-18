@@ -20,25 +20,34 @@ namespace Aquios
 	class PipelineSpec
 	{
 	public:
+		PipelineType Type;
+	};
+
+	struct GraphicsPipelineSpec : public PipelineSpec {
 		Shader* VertexShader;
 		Shader* FragmentShader;
-		Shader* ComputeShader;
-
 		VertexLayout* VertexLayout;
 		PipelineSettings Settings;
-		PipelineType Type;
+	};
+
+	struct ComputePipelineSpec : public PipelineSpec {
+		Shader* ComputeShader;
 	};
 
 	class Pipeline : public IDestructable
 	{
 	public:
 		virtual void Bind(CommandList* list) = 0;
-		PipelineSpec& GetSpec() { return m_PipelineSpec; }
+		const PipelineSpec* GetSpec() { return m_PipelineSpec; }
+
+		explicit Pipeline(const PipelineSpec* spec) : m_PipelineSpec(spec) {}
 
 		virtual void Release() = 0;
 
 		virtual ~Pipeline() = default;
 	protected:
-		PipelineSpec m_PipelineSpec;
+		const PipelineSpec* m_PipelineSpec;
+
+		virtual void Build() = 0;
 	};
 }

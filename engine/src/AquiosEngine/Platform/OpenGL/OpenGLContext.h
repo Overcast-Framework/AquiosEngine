@@ -1,5 +1,6 @@
 #pragma once
 #include <AquiosEngine/Renderer/GraphicsContext.h>
+#include <glad/glad.h>
 
 struct GLFWwindow;
 

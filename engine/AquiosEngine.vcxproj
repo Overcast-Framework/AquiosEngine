@@ -21,13 +21,13 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <CharacterSet>Unicode</CharacterSet>
-    <PlatformToolset>v143</PlatformToolset>
+    <PlatformToolset>v145</PlatformToolset>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -40,14 +40,14 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>..\bin\Debug\AquiosEngine\</OutDir>
-    <IntDir>..\bin-int\Debug\AquiosEngine\</IntDir>
+    <OutDir>$(ProjectDir)..\bin\Debug\AquiosEngine\</OutDir>
+    <IntDir>$(ProjectDir)..\bin-int\Debug\AquiosEngine\</IntDir>
     <TargetName>AquiosEngine</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>..\bin\Release\AquiosEngine\</OutDir>
-    <IntDir>..\bin-int\Release\AquiosEngine\</IntDir>
+    <OutDir>$(ProjectDir)..\bin\Release\AquiosEngine\</OutDir>
+    <IntDir>$(ProjectDir)..\bin-int\Release\AquiosEngine\</IntDir>
     <TargetName>AquiosEngine</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
@@ -60,6 +60,8 @@
       <AdditionalIncludeDirectories>src;..\vendors\glad\include;..\vendors\glfw\include;..\vendors\glm;..\vendors\imgui;..\vendors\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
+      <MinimalRebuild>false</MinimalRebuild>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -69,11 +71,10 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>..\bin\Debug\glfw\glfw.lib;..\bin\Debug\ImGui\ImGui.lib;opengl32.lib;spdlogd.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\Debugglfw;..\bin\Debugimgui;..\bin\Debugspdlog;..\vendors\spdlog\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\Debugglfw;..\bin\Debugimgui;..\bin\Debugspdlog;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -88,6 +89,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <ExternalWarningLevel>Level3</ExternalWarningLevel>
@@ -99,16 +101,25 @@
     </Link>
     <Lib>
       <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\Releaseglfw;..\bin\Releaseimgui;..\bin\Releasespdlog;..\vendors\spdlog\build\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\bin\Releaseglfw;..\bin\Releaseimgui;..\bin\Releasespdlog;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <ProjectReference>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\AquiosEngine.h" />
     <ClInclude Include="src\AquiosEngine\Application.h" />
+    <ClInclude Include="src\AquiosEngine\Assets\Asset.h" />
+    <ClInclude Include="src\AquiosEngine\Assets\AssetImporter.h" />
+    <ClInclude Include="src\AquiosEngine\Assets\AssetLoader.h" />
+    <ClInclude Include="src\AquiosEngine\Assets\AssetMetadata.h" />
+    <ClInclude Include="src\AquiosEngine\Assets\Assets.h" />
+    <ClInclude Include="src\AquiosEngine\Assets\ShaderImporter.h" />
     <ClInclude Include="src\AquiosEngine\Core.h" />
     <ClInclude Include="src\AquiosEngine\EntryPoint.h" />
     <ClInclude Include="src\AquiosEngine\EventSystem.h" />
     <ClInclude Include="src\AquiosEngine\Events\ApplicationEvent.h" />
+    <ClInclude Include="src\AquiosEngine\Events\AssetEvent.h" />
     <ClInclude Include="src\AquiosEngine\Events\Event.h" />
     <ClInclude Include="src\AquiosEngine\Events\KeyEvent.h" />
     <ClInclude Include="src\AquiosEngine\Events\MouseEvent.h" />
@@ -122,7 +133,13 @@
     <ClInclude Include="src\AquiosEngine\Log.h" />
     <ClInclude Include="src\AquiosEngine\MouseButtonCodes.h" />
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\GLGPUBuffer.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLCommandBackend.h" />
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLContext.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLPipeline.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLRenderer.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLVertexLayout.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\Utils.h" />
     <ClInclude Include="src\AquiosEngine\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\AquiosEngine\Platform\Windows\WindowsWindow.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\CommandList.h" />
@@ -131,13 +148,18 @@
     <ClInclude Include="src\AquiosEngine\Renderer\Framebuffer.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\GPUBuffer.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\GraphicsContext.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Material.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Mesh.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Pipeline.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\RenderPass.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Shader.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Swapchain.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Texture.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Vertex.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\VertexLayout.h" />
+    <ClInclude Include="src\AquiosEngine\UUID.h" />
     <ClInclude Include="src\AquiosEngine\Window.h" />
     <ClInclude Include="src\aqpch.h" />
   </ItemGroup>
@@ -146,15 +168,28 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="src\AquiosEngine\Application.cpp" />
+    <ClCompile Include="src\AquiosEngine\Assets\Asset.cpp" />
+    <ClCompile Include="src\AquiosEngine\Assets\AssetImporter.cpp" />
     <ClCompile Include="src\AquiosEngine\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="src\AquiosEngine\ImGui\ImGuiLayer.cpp" />
     <ClCompile Include="src\AquiosEngine\Layer.cpp" />
     <ClCompile Include="src\AquiosEngine\LayerStack.cpp" />
     <ClCompile Include="src\AquiosEngine\Log.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\GLGPUBuffer.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLCommandBackend.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLContext.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLPipeline.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLRenderer.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLVertexLayout.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\Windows\WindowsWindow.cpp" />
+    <ClCompile Include="src\AquiosEngine\Renderer\Material.cpp" />
+    <ClCompile Include="src\AquiosEngine\Renderer\Mesh.cpp" />
+    <ClCompile Include="src\AquiosEngine\Renderer\OrthographicCamera.cpp" />
+    <ClCompile Include="src\AquiosEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\AquiosEngine\Renderer\Shader.cpp" />
+    <ClCompile Include="src\AquiosEngine\UUID.cpp" />
     <ClCompile Include="src\aqpch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

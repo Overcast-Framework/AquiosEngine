@@ -3,6 +3,7 @@
 #include <AquiosEngine/Core.h>
 #include <AquiosEngine/Events/Event.h>
 #include <AquiosEngine/EventSystem.h>
+#include <AquiosEngine/Renderer/Renderer.h>
 
 namespace Aquios
 {
@@ -15,6 +16,7 @@ namespace Aquios
 		virtual void OnAttach() {}
 		virtual void OnDetach() {}
 		virtual void OnUpdate() {}
+		virtual void OnRender(Renderer& renderer) {}
 		virtual void OnImGuiRender() {}
 		virtual void OnEvent(std::shared_ptr<Event>& e) {}
 

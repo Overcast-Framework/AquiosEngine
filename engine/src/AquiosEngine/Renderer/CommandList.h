@@ -8,11 +8,32 @@
 
 namespace Aquios
 {
+	namespace Commands {
+		struct ClearColorCmd;
+		struct ClearCmd;
+		struct UploadBufferDataCmd;
+		struct BindBufferBaseCmd;
+		struct SetShaderUniformBufferCmd;
+		struct SetShaderStorageBlockCmd;
+		struct BindPipelineCmd;
+		struct LambdaCmd;
+		struct DrawMeshCmd;
+	}
+
 	struct ICommandBackend
 	{
-		virtual void Execute(const struct ClearColorCmd& cmd) = 0;
-		virtual void Execute(const struct ClearCmd& cmd) = 0;
-		virtual void Execute(const struct BindBufferCmd& cmd) = 0;
+		virtual void Execute(const Commands::ClearColorCmd* cmd) = 0;
+		virtual void Execute(const Commands::ClearCmd* cmd) = 0;
+		virtual void Execute(const Commands::UploadBufferDataCmd* cmd) = 0;
+		virtual void Execute(const Commands::BindBufferBaseCmd* cmd) = 0;
+		virtual void Execute(const Commands::SetShaderUniformBufferCmd* cmd) = 0;
+		virtual void Execute(const Commands::SetShaderStorageBlockCmd* cmd) = 0;
+		virtual void Execute(const Commands::BindPipelineCmd* cmd) = 0;
+		virtual void Execute(const Commands::DrawMeshCmd* cmd) = 0;
+		virtual void Execute(const Commands::LambdaCmd* cmd)
+		{
+			cmd->Execute();
+		}
 
 		virtual ~ICommandBackend() = default;
 	};
@@ -27,23 +48,32 @@ namespace Aquios
 	class CommandList : public IDestructable
 	{
 	public:
+		bool ExecuteImmediate = false;
+
 		template<typename T>
 		void Record(T cmd)
 		{
 			void* storage = Allocate(sizeof(T));
-			new(storage) T(std::move(cmd));
+			new(storage) T(cmd);
 
-			entries.push_back(
-				CommandEntry
+			auto cmdEntry = CommandEntry
+			{
+				+[](void* ptr, ICommandBackend* backend)
 				{
-					+[](void* ptr, ICommandBackend* backend)
-					{
-						T* c = reinterpret_cast<T*>(ptr);
-						backend->Execute(*c);
-					},
-					storage
-				}
-			);
+					T* c = reinterpret_cast<T*>(ptr);
+					backend->Execute(c);
+				},
+				storage
+			};
+
+			if (ExecuteImmediate)
+			{
+				cmdEntry.execute(cmdEntry.data, m_Backend);
+			}
+			else
+				entries.push_back(
+					cmdEntry
+				);
 		}
 
 		void ExecuteAll()
@@ -56,7 +86,15 @@ namespace Aquios
 			for (auto ptr : allocations) ::operator delete(ptr);
 		}
 
-		virtual void Release() = 0;
+		void Release()
+		{
+			
+		}
+
+		void SetBackend(ICommandBackend* backend)
+		{
+			m_Backend = backend;
+		}
 	private:
 		ICommandBackend* m_Backend;
 		std::vector<CommandEntry> entries;
