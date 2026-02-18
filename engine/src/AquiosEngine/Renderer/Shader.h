@@ -29,8 +29,8 @@ namespace Aquios
 
 		void SetUniformBuffer(CommandList* list, uint32_t index, GPUBuffer* buffer);
 		void SetStorageBuffer(CommandList* list, uint32_t index, GPUBuffer* buffer);
-		void Use(CommandList* list);
 
+		virtual ~Shader() = default;
 	private:
 		std::unordered_map<uint32_t, ShaderBufferBinding> m_Bindings;
 	};

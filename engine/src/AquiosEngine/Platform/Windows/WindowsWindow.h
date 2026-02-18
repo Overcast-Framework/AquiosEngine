@@ -25,6 +25,8 @@ namespace Aquios::Windows
 		HWND GetWin32Handle();
 		void* GetWindowHandle() const override { return m_WindowHandle; }
 
+		Renderer* GetRenderer() override { return m_Renderer; }
+
 		void OnUpdate() override;
 
 		unsigned int GetWidth() const override;
@@ -35,6 +37,7 @@ namespace Aquios::Windows
 	private:
 		GLFWwindow* m_WindowHandle = nullptr;
 		GraphicsContext* m_Context = nullptr;
+		Renderer* m_Renderer = nullptr;
 
 		static bool s_IsGLFWInitialized;
 	};

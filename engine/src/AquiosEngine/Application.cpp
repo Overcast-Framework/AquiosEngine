@@ -52,6 +52,10 @@ namespace Aquios
 			m_ActiveWindow = &focusEvent->GetWindow();
 			AQ_CORE_INFO("current active window: {0}", m_ActiveWindow->m_Data.Title);
 		}
+		else if (auto resizeEvent = dynamic_cast<WindowResizeEvent*>(event.get()))
+		{
+			m_ActiveWindow->GetRenderer()->OnResize(resizeEvent->GetNewWidth(), resizeEvent->GetNewHeight());
+		}
 
 		for (auto it = m_LayerStack.end(); it != m_LayerStack.begin(); )
 		{
@@ -77,16 +81,22 @@ namespace Aquios
 
 		while (m_Running)
 		{
-			glClearColor(0.15f, 0.15f, 0.15f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			auto* renderer = this->GetActiveWindow().GetRenderer();
+
+			renderer->BeginFrame();
 
 			for (Layer* layer : m_LayerStack)
+			{
 				layer->OnUpdate();
+				layer->OnRender(*renderer);
+			}
 
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 				layer->OnImGuiRender();
 			m_ImGuiLayer->End();
+
+			renderer->Stats.DrawCalls = 0;
 
 			m_Window->OnUpdate();
 		}

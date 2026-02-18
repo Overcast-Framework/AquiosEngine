@@ -5,6 +5,7 @@ project "Sandbox"
 
    targetdir ("../bin/" .. "%{cfg.buildcfg}" .. "/%{prj.name}")
    objdir ("../bin-int/" .. "%{cfg.buildcfg}" .. "/%{prj.name}")
+   debugdir "$(SolutionDir)"
 
    files {
     "src/**.cpp",

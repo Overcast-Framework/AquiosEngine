@@ -2,6 +2,7 @@
 #include "WindowsWindow.h"
 
 #include <AquiosEngine/Platform/OpenGL/OpenGLContext.h>
+#include <AquiosEngine/Platform/OpenGL/OpenGLRenderer.h>
 
 bool Aquios::Windows::WindowsWindow::s_IsGLFWInitialized;
 
@@ -14,10 +15,17 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
         s_IsGLFWInitialized = success;
     }
 
+#ifdef DEBUG
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+#endif
+
     this->m_WindowHandle = glfwCreateWindow(data.Width, data.Height, data.Title.c_str(), nullptr, nullptr);
 
     m_Context = new OpenGL::OpenGLContext(m_WindowHandle);
-    m_Context->Init();
+    m_Renderer = new OpenGL::OpenGLRenderer();
+
+    m_Renderer->ActiveWindow = this;
+    m_Renderer->Init(m_Context);
 
     glfwSetWindowUserPointer(this->m_WindowHandle, this);
     SetVSync(true);
@@ -110,7 +118,7 @@ void Aquios::Windows::WindowsWindow::OnUpdate()
     }
 
     glfwPollEvents();
-    m_Context->SwapBuffers();
+    m_Renderer->EndFrame();
 }
 
 unsigned int Aquios::Windows::WindowsWindow::GetWidth() const

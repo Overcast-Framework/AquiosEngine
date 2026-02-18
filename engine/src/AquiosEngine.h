@@ -9,6 +9,12 @@
 
 #include "AquiosEngine/ImGui/ImGuiLayer.h"
 
+#include "AquiosEngine/Renderer/CommandList.h"
+#include "AquiosEngine/Renderer/Commands.h"
+#include "AquiosEngine/Renderer/GPUBuffer.h"
+#include "AquiosEngine/Renderer/Vertex.h"
+#include "AquiosEngine/Renderer/Renderer.h"
+
 // ---- Entry Point ------------------
 #include "AquiosEngine/EntryPoint.h"
 // -----------------------------------

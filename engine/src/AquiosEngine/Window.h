@@ -2,6 +2,7 @@
 #include <GLFW/glfw3.h>
 #include <AquiosEngine/EventSystem.h>
 #include <AquiosEngine/Events/WindowEvent.h>
+#include <AquiosEngine/Renderer/Renderer.h>
 
 namespace Aquios
 {
@@ -42,6 +43,8 @@ namespace Aquios
 		virtual bool IsVSync() const = 0;
 
 		virtual void* GetWindowHandle() const = 0;
+
+		virtual Renderer* GetRenderer() = 0;
 
 		static Window* Create(const WindowProperties& properties = WindowProperties());
 

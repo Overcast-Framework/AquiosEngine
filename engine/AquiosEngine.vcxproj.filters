@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="src">
@@ -6,6 +6,9 @@
     </Filter>
     <Filter Include="src\AquiosEngine">
       <UniqueIdentifier>{242B4205-1024-6157-3956-46DC25AE4063}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\AquiosEngine\Assets">
+      <UniqueIdentifier>{8601F850-F238-40E8-FB42-A40B67F966E1}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\AquiosEngine\Events">
       <UniqueIdentifier>{88667B5A-F49D-C3F1-FDA7-2715695EEAEA}</UniqueIdentifier>
@@ -42,6 +45,24 @@
     <ClInclude Include="src\AquiosEngine\Application.h">
       <Filter>src\AquiosEngine</Filter>
     </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Assets\Asset.h">
+      <Filter>src\AquiosEngine\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Assets\AssetImporter.h">
+      <Filter>src\AquiosEngine\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Assets\AssetLoader.h">
+      <Filter>src\AquiosEngine\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Assets\AssetMetadata.h">
+      <Filter>src\AquiosEngine\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Assets\Assets.h">
+      <Filter>src\AquiosEngine\Assets</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Assets\ShaderImporter.h">
+      <Filter>src\AquiosEngine\Assets</Filter>
+    </ClInclude>
     <ClInclude Include="src\AquiosEngine\Core.h">
       <Filter>src\AquiosEngine</Filter>
     </ClInclude>
@@ -52,6 +73,9 @@
       <Filter>src\AquiosEngine</Filter>
     </ClInclude>
     <ClInclude Include="src\AquiosEngine\Events\ApplicationEvent.h">
+      <Filter>src\AquiosEngine\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Events\AssetEvent.h">
       <Filter>src\AquiosEngine\Events</Filter>
     </ClInclude>
     <ClInclude Include="src\AquiosEngine\Events\Event.h">
@@ -93,7 +117,25 @@
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\GLGPUBuffer.h">
       <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLCommandBackend.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLContext.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLPipeline.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLRenderer.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLShader.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLVertexLayout.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\Utils.h">
       <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
     </ClInclude>
     <ClInclude Include="src\AquiosEngine\Platform\Windows\WindowsInput.h">
@@ -120,10 +162,22 @@
     <ClInclude Include="src\AquiosEngine\Renderer\GraphicsContext.h">
       <Filter>src\AquiosEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Material.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Mesh.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\OrthographicCamera.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\AquiosEngine\Renderer\Pipeline.h">
       <Filter>src\AquiosEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\AquiosEngine\Renderer\RenderPass.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer.h">
       <Filter>src\AquiosEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\AquiosEngine\Renderer\Shader.h">
@@ -141,6 +195,9 @@
     <ClInclude Include="src\AquiosEngine\Renderer\VertexLayout.h">
       <Filter>src\AquiosEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\AquiosEngine\UUID.h">
+      <Filter>src\AquiosEngine</Filter>
+    </ClInclude>
     <ClInclude Include="src\AquiosEngine\Window.h">
       <Filter>src\AquiosEngine</Filter>
     </ClInclude>
@@ -154,6 +211,12 @@
     </ClCompile>
     <ClCompile Include="src\AquiosEngine\Application.cpp">
       <Filter>src\AquiosEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Assets\Asset.cpp">
+      <Filter>src\AquiosEngine\Assets</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Assets\AssetImporter.cpp">
+      <Filter>src\AquiosEngine\Assets</Filter>
     </ClCompile>
     <ClCompile Include="src\AquiosEngine\ImGui\ImGuiBuild.cpp">
       <Filter>src\AquiosEngine\ImGui</Filter>
@@ -173,7 +236,22 @@
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\GLGPUBuffer.cpp">
       <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLCommandBackend.cpp">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLContext.cpp">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLPipeline.cpp">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLRenderer.cpp">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLShader.cpp">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLVertexLayout.cpp">
       <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
     </ClCompile>
     <ClCompile Include="src\AquiosEngine\Platform\Windows\WindowsInput.cpp">
@@ -181,6 +259,24 @@
     </ClCompile>
     <ClCompile Include="src\AquiosEngine\Platform\Windows\WindowsWindow.cpp">
       <Filter>src\AquiosEngine\Platform\Windows</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Renderer\Material.cpp">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Renderer\Mesh.cpp">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Renderer\OrthographicCamera.cpp">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Renderer\Renderer.cpp">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Renderer\Shader.cpp">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\AquiosEngine\UUID.cpp">
+      <Filter>src\AquiosEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\aqpch.cpp">
       <Filter>src</Filter>
