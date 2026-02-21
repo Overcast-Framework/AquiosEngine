@@ -35,9 +35,7 @@ void Aquios::Material::Update()
     if (m_UBStruct && m_IsUBStructDirty)
     {
         auto renderer = Aquios::Application::Get().GetActiveWindow().GetRenderer();
-        auto* uploadCmdList = renderer->CreateCommandList(true);
-        this->m_MaterialUB->UploadData(uploadCmdList, this->m_UBStruct, this->m_UBStructSize);
-        uploadCmdList->Release();
+        this->m_MaterialUB->UploadData(this->m_UBStruct, this->m_UBStructSize);
         m_IsUBStructDirty = false;
     }
 }

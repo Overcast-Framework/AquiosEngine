@@ -15,8 +15,8 @@ Aquios::Mesh::Mesh(std::vector<Vertex> vertices, std::vector<uint32_t> indices, 
 	this->m_IndexBuffer->UploadData(indices.data(), indices.size() * sizeof(uint32_t));
 
 	auto* gSpec = (GraphicsPipelineSpec*)material->GetPipeline()->GetSpec();
-	gSpec->VertexLayout->AssignBuffer(this->m_VertexBuffer, 0, sizeof(Aquios::Vertex));
-	gSpec->VertexLayout->AssignBuffer(this->m_IndexBuffer);
+	gSpec->VertexLayout->AssignBuffer(this->m_VertexBuffer.get(), 0, sizeof(Aquios::Vertex));
+	gSpec->VertexLayout->AssignBuffer(this->m_IndexBuffer.get());
 
 	this->m_VertexCount = vertices.size();
 	this->m_IndexCount = indices.size();

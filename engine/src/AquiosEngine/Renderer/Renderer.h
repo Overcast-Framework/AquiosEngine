@@ -5,7 +5,8 @@
 #include <AquiosEngine/Renderer/VertexLayout.h>
 #include <AquiosEngine/Renderer/Pipeline.h>
 #include <AquiosEngine/Renderer/Mesh.h>
-#include <AquiosEngine/Renderer/OrthographicCamera.h>
+#include <AquiosEngine/Renderer/Camera.h> 
+#include <AquiosEngine/Renderer/Renderer2D.h>
 #include <fstream>
 #include <chrono>
 
@@ -29,8 +30,6 @@ namespace Aquios
 			int DrawCalls;
 		} Stats;
 
-		Window* ActiveWindow = nullptr;
-
 		virtual void Init(GraphicsContext* ctx) = 0;
 
 		virtual void BeginFrame() = 0;
@@ -38,31 +37,38 @@ namespace Aquios
 
 		virtual void OnResize(int w, int h) = 0;
 
-		virtual GPUBuffer* CreateGPUBuffer(GPUBuffer::Type type, uint32_t size) = 0;
-		virtual CommandList* CreateCommandList(bool immediateMode = false) = 0;
-		virtual Pipeline* CreatePipeline(const PipelineSpec* spec) = 0;
-		virtual Shader* CreateShader(ShaderType type, std::string source) = 0;
-		virtual VertexLayout* GetDefaultVertexLayout() = 0;
+		virtual Scope<GPUBuffer> CreateGPUBuffer(GPUBuffer::Type type, uint32_t size) = 0;
+		virtual Scope<CommandList> CreateCommandList(bool immediateMode = false) = 0;
+		virtual Scope<Pipeline> CreatePipeline(const PipelineSpec* spec) = 0;
+		virtual Scope<Shader> CreateShader(ShaderType type, std::string source) = 0;
+		virtual Ref<VertexLayout> GetDefaultVertexLayout() = 0;
 		
-		virtual void DrawIndexed(CommandList* cmdList, VertexLayout* layout, Pipeline* pipeline, GPUBuffer* vertexBuffer, GPUBuffer* indexBuffer) = 0;
-		virtual void DrawMesh(CommandList* cmdList, Mesh* mesh) = 0;
-		virtual void DrawQuad(glm::vec4 color, glm::vec3 position, glm::vec3 scale, float rotation) = 0;
-
-		virtual void FlushQuadBatch() = 0;
+		virtual void DrawIndexed(int vertCount) = 0;
+		virtual void DrawInstanced(int vertCount, int instanceCount) = 0;
 
 		void CreateDefaultMats();
-
 		const DefaultMaterials& GetDefaultMaterials() const { return m_DefaultMats; }
+
 		const float& GetDeltaTime() const { return m_DeltaTime; }
 		const int& GetFPS() const { return m_FPS; }
 		const int& GetFrameCount() const { return m_FrameCount; }
 
+		Ref<Renderer2D> GetRenderer2D() const { return m_Renderer2D; }
+
+		const Window* GetActiveWindow() const { return m_ActiveWindow; }
+		void SetActiveWindow(Window* window){ m_ActiveWindow = window; }
+
+		Camera* GetCamera() const { return m_Camera; }
+		void SetCamera(Camera* camera) { m_Camera = camera; }
+
 		virtual void Release() = 0;
 		virtual ~Renderer() = default;
 	protected:
-		GraphicsContext* m_Context = nullptr;
+		GraphicsContext* m_Context = nullptr; // keep as regular ptr
 		DefaultMaterials m_DefaultMats;
-		OrthographicCamera* m_Camera = nullptr;
+		Camera* m_Camera = nullptr; // keep as regular ptr
+		Ref<Renderer2D> m_Renderer2D = nullptr;
+		Window* m_ActiveWindow = nullptr;  // keep as regular ptr
 
 		float m_DeltaTime = 0.0f;
 		int m_FPS = 0;

@@ -24,9 +24,9 @@ namespace Aquios
 	};
 
 	struct GraphicsPipelineSpec : public PipelineSpec {
-		Shader* VertexShader;
-		Shader* FragmentShader;
-		VertexLayout* VertexLayout;
+		Scope<Shader> VertexShader;
+		Scope<Shader> FragmentShader;
+		Ref<VertexLayout> VertexLayout;
 		PipelineSettings Settings;
 	};
 

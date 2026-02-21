@@ -49,13 +49,12 @@ namespace Aquios
 		static Window* Create(const WindowProperties& properties = WindowProperties());
 
 		WindowData m_Data;
-	private:
+	protected:
 		void OnEvent(std::shared_ptr<Event> e) override
 		{
 			if (m_EventCallback)
 				m_EventCallback(e);
 		}
-	private:
 		EventCallbackFn m_EventCallback;
 	};
 }

@@ -63,7 +63,7 @@ void Aquios::OpenGL::OpenGLCommandBackend::Execute(const Commands::BindPipelineC
 		case PipelineType::Graphics:
 		{
 			GraphicsPipelineSpec* graphicsSpec = (GraphicsPipelineSpec*)pipeline->GetSpec();
-			OpenGLVertexLayout* layout = (OpenGLVertexLayout*)graphicsSpec->VertexLayout;
+			OpenGLVertexLayout* layout = (OpenGLVertexLayout*)graphicsSpec->VertexLayout.get();
 			glBindVertexArray(layout->GetId());
 		}
 	}

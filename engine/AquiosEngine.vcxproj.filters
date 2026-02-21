@@ -204,6 +204,10 @@
     <ClInclude Include="src\aqpch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Camera.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLTexture.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendors\glad\src\glad.c">
@@ -281,5 +285,7 @@
     <ClCompile Include="src\aqpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLTexture.cpp" />
+    <ClCompile Include="src\AquiosEngine\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

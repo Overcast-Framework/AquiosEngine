@@ -68,7 +68,7 @@ namespace Aquios
 
 			if (ExecuteImmediate)
 			{
-				cmdEntry.execute(cmdEntry.data, m_Backend);
+				cmdEntry.execute(cmdEntry.data, m_Backend.get());
 			}
 			else
 				entries.push_back(
@@ -79,7 +79,7 @@ namespace Aquios
 		void ExecuteAll()
 		{
 			for (auto& e : entries)
-				e.execute(e.data, m_Backend);
+				e.execute(e.data, m_Backend.get());
 		}
 
 		~CommandList() {
@@ -91,12 +91,12 @@ namespace Aquios
 			
 		}
 
-		void SetBackend(ICommandBackend* backend)
+		void SetBackend(Scope<ICommandBackend> backend)
 		{
-			m_Backend = backend;
+			m_Backend = std::move(backend);
 		}
 	private:
-		ICommandBackend* m_Backend;
+		Scope<ICommandBackend> m_Backend;
 		std::vector<CommandEntry> entries;
 		std::vector<void*> allocations;
 

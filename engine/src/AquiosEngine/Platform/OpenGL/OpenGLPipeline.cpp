@@ -25,8 +25,8 @@ void Aquios::OpenGL::OpenGLPipeline::Build()
 				return;
 			}
 
-			OpenGLShader* vShader = (OpenGLShader*)graphicsSpec->VertexShader;
-			OpenGLShader* fShader = (OpenGLShader*)graphicsSpec->FragmentShader;
+			OpenGLShader* vShader = (OpenGLShader*)graphicsSpec->VertexShader.get();
+			OpenGLShader* fShader = (OpenGLShader*)graphicsSpec->FragmentShader.get();
 
 			if (!vShader || !fShader) {
 				AQ_CORE_ERROR("[OPENGL]", "Shader pointers are null");

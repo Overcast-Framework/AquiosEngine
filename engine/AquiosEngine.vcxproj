@@ -138,10 +138,12 @@
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLPipeline.h" />
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLRenderer.h" />
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLShader.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLTexture.h" />
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLVertexLayout.h" />
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\Utils.h" />
     <ClInclude Include="src\AquiosEngine\Platform\Windows\WindowsInput.h" />
     <ClInclude Include="src\AquiosEngine\Platform\Windows\WindowsWindow.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Camera.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\CommandList.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Commands.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Format.h" />
@@ -152,6 +154,8 @@
     <ClInclude Include="src\AquiosEngine\Renderer\Mesh.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Pipeline.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer3D.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\RenderPass.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Renderer.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Shader.h" />
@@ -181,6 +185,7 @@
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLPipeline.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLRenderer.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLShader.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLTexture.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLVertexLayout.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\Windows\WindowsInput.cpp" />
     <ClCompile Include="src\AquiosEngine\Platform\Windows\WindowsWindow.cpp" />
@@ -188,6 +193,7 @@
     <ClCompile Include="src\AquiosEngine\Renderer\Mesh.cpp" />
     <ClCompile Include="src\AquiosEngine\Renderer\OrthographicCamera.cpp" />
     <ClCompile Include="src\AquiosEngine\Renderer\Renderer.cpp" />
+    <ClCompile Include="src\AquiosEngine\Renderer\Renderer2D.cpp" />
     <ClCompile Include="src\AquiosEngine\Renderer\Shader.cpp" />
     <ClCompile Include="src\AquiosEngine\UUID.cpp" />
     <ClCompile Include="src\aqpch.cpp">

@@ -1,0 +1,21 @@
+I store code here that actively distracts me from working
+
+GRID CODE (I cannot tell you how much this distracted me because I liked customizing it)
+float quadSize = 25.0f;
+float spacing = 2.0f;
+float windowCenterX = window.GetWidth() / 2.0f;
+float windowCenterY = window.GetHeight() / 2.0f;
+float totalWidth = gridSize * quadSize + (gridSize - 1) * spacing;
+float totalHeight = gridSize * quadSize + (gridSize - 1) * spacing;
+float halfWidth = totalWidth / 2.0f;
+float halfHeight = totalHeight / 2.0f;
+
+for (int i = 0; i < gridSize; i++)
+{
+	for (int j = 0; j < gridSize; j++)
+	{
+		float x = i * (quadSize + spacing) - totalWidth / 2.0f + quadSize / 2.0f + windowCenterX;
+		float y = j * (quadSize + spacing) - totalHeight / 2.0f + quadSize / 2.0f + windowCenterY;
+		renderer.DrawQuad({ 1,0,0,1 }, { x, y+(200*sin((renderer.GetFrameCount()/10)+ 0.5 * x - 1.9 * y)*renderer.GetDeltaTime()), 0}, {quadSize, quadSize, 1}, rotation);
+	}
+}

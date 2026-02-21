@@ -17,25 +17,10 @@ public:
 		Aquios::Application& app = Aquios::Application::Get();
 		auto& window = app.GetActiveWindow();
 
-		float quadSize = 25.0f;
-		float spacing = 2.0f;
-		float windowCenterX = window.GetWidth() / 2.0f;
-		float windowCenterY = window.GetHeight() / 2.0f;
-		float totalWidth = gridSize * quadSize + (gridSize - 1) * spacing;
-		float totalHeight = gridSize * quadSize + (gridSize - 1) * spacing;
-		float halfWidth = totalWidth / 2.0f;
-		float halfHeight = totalHeight / 2.0f;
+		auto renderer2D = renderer.GetRenderer2D();
 
-		for (int i = 0; i < gridSize; i++)
-		{
-			for (int j = 0; j < gridSize; j++)
-			{
-				float x = i * (quadSize + spacing) - totalWidth / 2.0f + quadSize / 2.0f + windowCenterX;
-				float y = j * (quadSize + spacing) - totalHeight / 2.0f + quadSize / 2.0f + windowCenterY;
-				renderer.DrawQuad({ 1,0,0,1 }, { x, y+(200*sin((renderer.GetFrameCount()/10)+ 0.5 * x - 1.2 * y)*renderer.GetDeltaTime()), 0}, {quadSize, quadSize, 1}, rotation);
-			}
-		}
-		renderer.FlushQuadBatch();
+		renderer2D->DrawQuad({ 1,0,0,1 }, { 0,0,0 }, { 100,100,0 }, rotation);
+		renderer2D->SubmitBatch();
 	}
 
 	virtual void OnImGuiRender() override
@@ -59,8 +44,11 @@ public:
 	virtual void OnAttach() override
 	{
 		Aquios::Application& app = Aquios::Application::Get();
+		auto& window = app.GetActiveWindow();
 		auto renderer = app.GetActiveWindow().GetRenderer();
 		renderer->CreateDefaultMats();
+
+		renderer->SetCamera(new Aquios::OrthographicCamera({ 0,0,1 }, { 0,1,0 }, { window.GetWidth(), window.GetHeight() }));
 	}
 
 	virtual void OnDetach() override 
@@ -76,7 +64,31 @@ public:
 
 	void OnEvent(std::shared_ptr<Aquios::Event>& e) override
 	{
-		//AQ_TRACE(e->ToString());
+		if (e->GetName() == "KeyPressedEvent")
+		{
+			Aquios::Application& app = Aquios::Application::Get();
+			auto renderer = app.GetActiveWindow().GetRenderer();
+			auto camera = renderer->GetCamera();
+
+			auto* keyEvent = dynamic_cast<Aquios::KeyPressedEvent*>(e.get());
+			auto key = keyEvent->GetKeycode();
+			if (key == AQ_KEY_W)
+			{
+				camera->Position += glm::vec3{0, 1, 0} * 600.0f * renderer->GetDeltaTime();
+			}
+			else if (key == AQ_KEY_S)
+			{
+				camera->Position += glm::vec3{ 0, -1, 0 } * 600.0f * renderer->GetDeltaTime();
+			}
+			else if (key == AQ_KEY_A)
+			{
+				camera->Position += glm::vec3{ -1, 0, 0 } * 600.0f * renderer->GetDeltaTime();
+			}
+			else if (key == AQ_KEY_D)
+			{
+				camera->Position += glm::vec3{ 1, 0, 0 } * 600.0f * renderer->GetDeltaTime();
+			}
+		}
 	}
 
 private:

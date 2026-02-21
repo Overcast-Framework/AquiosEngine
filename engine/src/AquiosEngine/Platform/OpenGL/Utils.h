@@ -17,6 +17,12 @@ namespace Aquios::OpenGL
 			return GL_FLOAT;
 		case Format::Float3:
 			return GL_FLOAT;
+		case Format::RGB8:
+			return GL_RGB8;
+		case Format::RGBA8:
+			return GL_RGBA8;
+		case Format::D24S8:
+			return GL_DEPTH24_STENCIL8;
 		}
 	}
 }

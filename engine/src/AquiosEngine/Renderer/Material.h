@@ -37,7 +37,7 @@ namespace Aquios
 		Texture* m_Textures[16] = { nullptr };
 
 		MaterialUB* m_UBStruct = {};
-		GPUBuffer* m_MaterialUB = nullptr;
+		Scope<GPUBuffer> m_MaterialUB = nullptr;
 
 		size_t m_UBStructSize = 0;
 

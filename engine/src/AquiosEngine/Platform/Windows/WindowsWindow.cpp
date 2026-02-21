@@ -24,7 +24,7 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
     m_Context = new OpenGL::OpenGLContext(m_WindowHandle);
     m_Renderer = new OpenGL::OpenGLRenderer();
 
-    m_Renderer->ActiveWindow = this;
+    m_Renderer->SetActiveWindow(this);
     m_Renderer->Init(m_Context);
 
     glfwSetWindowUserPointer(this->m_WindowHandle, this);
@@ -102,7 +102,21 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
 
 Aquios::Windows::WindowsWindow::~WindowsWindow()
 {
-    glfwTerminate();
+    m_EventCallback = nullptr;
+    m_Data.EventCallback = nullptr;
+
+    glfwSetWindowSizeCallback(m_WindowHandle, nullptr);
+    glfwSetWindowFocusCallback(m_WindowHandle, nullptr);
+    glfwSetCursorPosCallback(m_WindowHandle, nullptr);
+    glfwSetScrollCallback(m_WindowHandle, nullptr);
+    glfwSetKeyCallback(m_WindowHandle, nullptr);
+    glfwSetCharCallback(m_WindowHandle, nullptr);
+    glfwSetMouseButtonCallback(m_WindowHandle, nullptr);
+
+    delete m_Renderer;
+    delete m_Context;
+    m_Renderer = nullptr;
+    m_Context = nullptr;
 }
 
 HWND Aquios::Windows::WindowsWindow::GetWin32Handle()

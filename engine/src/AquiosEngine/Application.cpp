@@ -100,5 +100,7 @@ namespace Aquios
 
 			m_Window->OnUpdate();
 		}
+
+		glfwTerminate();
 	}
 }

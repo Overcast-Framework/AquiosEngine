@@ -5,15 +5,22 @@ layout (location = 2) in vec3 aTangent;
 layout (location = 3) in vec3 aBitangent;
 layout (location = 4) in vec2 aTexCoord;
 
-layout(std430, binding = 1) buffer QuadTransforms
+struct Int_QuadInfo
 {
-    mat4 model[2000];
+	vec4 Color;
+	mat4 MVP;
 };
 
-flat out int instanceId;
+layout(std430, binding = 0) buffer QuadTransforms
+{
+    Int_QuadInfo info[];
+};
+
+out vec4 quadColor;
 
 void main()
 {
-	instanceId = gl_InstanceID;
-	gl_Position = model[gl_InstanceID]*vec4(aPos, 1);
+	Int_QuadInfo quadInfo = info[gl_InstanceID];
+	quadColor = quadInfo.Color;
+	gl_Position = quadInfo.MVP*vec4(aPos, 1);
 }

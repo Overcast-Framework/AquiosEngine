@@ -16,9 +16,11 @@ namespace Aquios
 	public:
 		enum class Type { Texture2D, Cubemap, Texture3D };
 
-		virtual void SetData(CommandList* list, void* data, size_t size, int mipLevel = 0) = 0;
+		virtual void SetData(void* data, size_t size, int mipLevel = 0) = 0;
 		virtual void Bind(CommandList* list, int slot) = 0;
-		virtual InternalTextureHandle GetInternalHandle() = 0;
+		virtual InternalTextureHandle* GetInternalHandle() = 0;
+
+		virtual void Init() = 0;
 
 		virtual void Release() = 0;
 
@@ -29,10 +31,11 @@ namespace Aquios
 
 		Texture(Type type, Format format, size_t width, size_t height)
 			: TextureType(type), Format(format), Width(width), Height(height) {
+			Init();
 		}
 
 		virtual ~Texture() = default;
-	private:
+	protected:
 		Type TextureType;
 		Format Format;
 		size_t Width, Height;
