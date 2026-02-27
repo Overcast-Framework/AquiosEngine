@@ -23,9 +23,6 @@ void Aquios::Material::Use(CommandList* list)
 {
     AQ_CORE_ASSERT(this->m_UBStruct != nullptr, "No material struct specified. You must call SetUBStruct on a material to set a material struct.");
 
-    for (uint32_t i = 0; i < 16; ++i)
-        if (m_Textures[i]) m_Textures[i]->Bind(list, i);
-
     this->m_Pipeline->Bind(list);
     this->m_MaterialUB->BindBase(list);
 }

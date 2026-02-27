@@ -10,6 +10,11 @@ project "AquiosEngine"
    targetdir ("../bin/" .. "%{cfg.buildcfg}" .. "/%{prj.name}")
    objdir ("../bin-int/" .. "%{cfg.buildcfg}" .. "/%{prj.name}")
 
+   local vulkan_sdk = os.getenv("VULKAN_SDK")
+   if not vulkan_sdk then
+       error("VULKAN_SDK environment variable not set. Please install Vulkan SDK.")
+   end
+
    files { 
     -- Engine Project Files
     "src/**.cpp", 
@@ -31,16 +36,21 @@ project "AquiosEngine"
     "../vendors/glfw/include",
     "../vendors/glm",
     "../vendors/imgui",
-    "../vendors/spdlog/include"
+    "../vendors/spdlog/include",
+    "../vendors/vk-bootstrap/src",
+    "../vendors/vma/include",
+    os.getenv("VULKAN_SDK") .. "/Include",  
    }
 
    libdirs {
     "../bin/" .. "%{cfg.buildcfg}" .. "glfw",
     "../bin/" .. "%{cfg.buildcfg}" .. "imgui",
     "../bin/" .. "%{cfg.buildcfg}" .. "spdlog",
+    "../bin/" .. "%{cfg.buildcfg}" .. "vk-bootstrap",
+    os.getenv("VULKAN_SDK") .. "/Lib"
    }
 
-   links { "glfw", "imgui", "opengl32", "spdlog" }
+   links { "glfw", "imgui", "opengl32", "spdlog", "vulkan-1", "vk-bootstrap" }
 
    filter "action:vs*"
       buildoptions { "/utf-8" }

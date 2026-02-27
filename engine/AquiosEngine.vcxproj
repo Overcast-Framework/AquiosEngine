@@ -57,7 +57,7 @@
       <PrecompiledHeaderFile>aqpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\vendors\glad\include;..\vendors\glfw\include;..\vendors\glm;..\vendors\imgui;..\vendors\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\vendors\glad\include;..\vendors\glfw\include;..\vendors\glm;..\vendors\imgui;..\vendors\spdlog\include;..\vendors\vk-bootstrap\src;..\vendors\vma\include;C:\VulkanSDK\1.4.341.1\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <MinimalRebuild>false</MinimalRebuild>
@@ -71,8 +71,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\Debugglfw;..\bin\Debugimgui;..\bin\Debugspdlog;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\Debugglfw;..\bin\Debugimgui;..\bin\Debugspdlog;..\bin\Debugvk-bootstrap;C:\VulkanSDK\1.4.341.1\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
     </ProjectReference>
@@ -83,7 +83,7 @@
       <PrecompiledHeaderFile>aqpch.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>GLFW_INCLUDE_NONE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>src;..\vendors\glad\include;..\vendors\glfw\include;..\vendors\glm;..\vendors\imgui;..\vendors\spdlog\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>src;..\vendors\glad\include;..\vendors\glfw\include;..\vendors\glm;..\vendors\imgui;..\vendors\spdlog\include;..\vendors\vk-bootstrap\src;..\vendors\vma\include;C:\VulkanSDK\1.4.341.1\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -100,8 +100,8 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
     <Lib>
-      <AdditionalDependencies>opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>..\bin\Releaseglfw;..\bin\Releaseimgui;..\bin\Releasespdlog;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\bin\Releaseglfw;..\bin\Releaseimgui;..\bin\Releasespdlog;..\bin\Releasevk-bootstrap;C:\VulkanSDK\1.4.341.1\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
     <ProjectReference>
     </ProjectReference>
@@ -154,10 +154,10 @@
     <ClInclude Include="src\AquiosEngine\Renderer\Mesh.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\OrthographicCamera.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Pipeline.h" />
-    <ClInclude Include="src\AquiosEngine\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\AquiosEngine\Renderer\Renderer3D.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\RenderPass.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Renderer.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer2D.h" />
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer3D.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Shader.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Swapchain.h" />
     <ClInclude Include="src\AquiosEngine\Renderer\Texture.h" />
@@ -209,6 +209,9 @@
     </ProjectReference>
     <ProjectReference Include="..\vendors\spdlog\spdlog.vcxproj">
       <Project>{8EAD431C-7A4F-6EF2-630A-82464F4BF542}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\vendors\vk-bootstrap\vk-bootstrap.vcxproj">
+      <Project>{91F412DC-7D57-A280-26DD-DA36121F6E03}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

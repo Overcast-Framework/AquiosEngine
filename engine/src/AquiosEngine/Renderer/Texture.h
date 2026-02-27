@@ -24,20 +24,21 @@ namespace Aquios
 
 		virtual void Release() = 0;
 
-		const Type& GetType() { return TextureType; }
-		const Format& GetFormat() { return this->Format; }
-		const size_t& GetWidth() { return Width; }
-		const size_t& GetHeight() { return Height; }
+		const Type& GetType() { return m_TextureType; }
+		const Format& GetFormat() { return m_Format; }
+		const size_t& GetWidth() { return m_Width; }
+		const size_t& GetHeight() { return m_Height; }
+		const size_t& GetSize() { return m_TextureSize; }
 
 		Texture(Type type, Format format, size_t width, size_t height)
-			: TextureType(type), Format(format), Width(width), Height(height) {
-			Init();
+			: m_TextureType(type), m_Format(format), m_Width(width), m_Height(height) {
 		}
 
 		virtual ~Texture() = default;
 	protected:
-		Type TextureType;
-		Format Format;
-		size_t Width, Height;
+		Type m_TextureType;
+		Format m_Format;
+		size_t m_Width, m_Height;
+		size_t m_TextureSize;
 	};
 }

@@ -26,6 +26,9 @@ namespace Aquios::OpenGL
 				AQ_CORE_WARN("[OPENGL/DBG] Source {} Severity {} Type {} || {}", source, severity, type, message);
 				}, nullptr);
 		}
+
+		if (!GLAD_GL_ARB_bindless_texture)
+			throw std::runtime_error("Bindless textures not supported.");
 	}
 	void OpenGLContext::SwapBuffers()
 	{

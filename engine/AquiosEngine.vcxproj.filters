@@ -132,6 +132,9 @@
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLShader.h">
       <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
     </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLTexture.h">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClInclude>
     <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLVertexLayout.h">
       <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
     </ClInclude>
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="src\AquiosEngine\Platform\Windows\WindowsWindow.h">
       <Filter>src\AquiosEngine\Platform\Windows</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Camera.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="src\AquiosEngine\Renderer\CommandList.h">
       <Filter>src\AquiosEngine\Renderer</Filter>
@@ -180,6 +186,12 @@
     <ClInclude Include="src\AquiosEngine\Renderer\Renderer.h">
       <Filter>src\AquiosEngine\Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer2D.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Renderer\Renderer3D.h">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="src\AquiosEngine\Renderer\Shader.h">
       <Filter>src\AquiosEngine\Renderer</Filter>
     </ClInclude>
@@ -204,10 +216,6 @@
     <ClInclude Include="src\aqpch.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\AquiosEngine\Renderer\Camera.h" />
-    <ClInclude Include="src\AquiosEngine\Platform\OpenGL\OpenGLTexture.h" />
-    <ClInclude Include="src\AquiosEngine\Renderer\Renderer2D.h" />
-    <ClInclude Include="src\AquiosEngine\Renderer\Renderer3D.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendors\glad\src\glad.c">
@@ -255,6 +263,9 @@
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLShader.cpp">
       <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
     </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLTexture.cpp">
+      <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
+    </ClCompile>
     <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLVertexLayout.cpp">
       <Filter>src\AquiosEngine\Platform\OpenGL</Filter>
     </ClCompile>
@@ -276,6 +287,9 @@
     <ClCompile Include="src\AquiosEngine\Renderer\Renderer.cpp">
       <Filter>src\AquiosEngine\Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Renderer\Renderer2D.cpp">
+      <Filter>src\AquiosEngine\Renderer</Filter>
+    </ClCompile>
     <ClCompile Include="src\AquiosEngine\Renderer\Shader.cpp">
       <Filter>src\AquiosEngine\Renderer</Filter>
     </ClCompile>
@@ -285,7 +299,5 @@
     <ClCompile Include="src\aqpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\AquiosEngine\Platform\OpenGL\OpenGLTexture.cpp" />
-    <ClCompile Include="src\AquiosEngine\Renderer\Renderer2D.cpp" />
   </ItemGroup>
 </Project>

@@ -7,6 +7,7 @@
 #include <AquiosEngine/Platform/OpenGL/OpenGLVertexLayout.h>
 #include <AquiosEngine/Platform/OpenGL/OpenGLPipeline.h>
 #include <AquiosEngine/Platform/OpenGL/OpenGLShader.h>
+#include <AquiosEngine/Platform/OpenGL/OpenGLTexture.h>
 #include <AquiosEngine/Renderer/Vertex.h>
 #include <AquiosEngine/Window.h>
 
@@ -18,6 +19,9 @@ void Aquios::OpenGL::OpenGLRenderer::Init(GraphicsContext* ctx)
 	ctx->Init();          
 	m_Context = ctx;
 
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
 	m_DefaultLayout = std::make_shared<OpenGLVertexLayout>();
 
 	m_DefaultLayout->AddAttribute(VertexAttribute{ "Position",  0,  Format::Float3,  offsetof(Vertex, Position),  3, VertexAttribute::InputRate::PerVertex });
@@ -25,11 +29,12 @@ void Aquios::OpenGL::OpenGLRenderer::Init(GraphicsContext* ctx)
 	m_DefaultLayout->AddAttribute(VertexAttribute{ "Tangent",   2,  Format::Float3,  offsetof(Vertex, Tangent),   3, VertexAttribute::InputRate::PerVertex });
 	m_DefaultLayout->AddAttribute(VertexAttribute{ "Bitangent", 3,  Format::Float3,  offsetof(Vertex, Bitangent), 3, VertexAttribute::InputRate::PerVertex });
 	m_DefaultLayout->AddAttribute(VertexAttribute{ "TexCoord",  4,  Format::Float2,  offsetof(Vertex, TexCoord),  2, VertexAttribute::InputRate::PerVertex });
-
 	m_DefaultLayout->Build();
 
 	m_Renderer2D = std::make_shared<Renderer2D>();
 	m_Renderer2D->Init(this);
+
+	m_API = GraphicsAPI::OpenGL;
 }
 
 void Aquios::OpenGL::OpenGLRenderer::BeginFrame()
@@ -80,6 +85,15 @@ Scope<Aquios::Pipeline> Aquios::OpenGL::OpenGLRenderer::CreatePipeline(const Pip
 Scope<Aquios::Shader> Aquios::OpenGL::OpenGLRenderer::CreateShader(ShaderType type, std::string source)
 {
 	return std::make_unique<OpenGL::OpenGLShader>(type, source);
+}
+
+Scope<Aquios::Texture> Aquios::OpenGL::OpenGLRenderer::CreateTexture(Texture::Type type, Format fmt, const void* data, size_t width, size_t height)
+{
+	auto tex = std::make_unique<OpenGLTexture>(type, fmt, width, height);
+	tex->SetData((void*)data, width * height * get_fmt_bpp(fmt), 0);
+	tex->MakeResident();
+
+	return std::move(tex);
 }
 
 void Aquios::OpenGL::OpenGLRenderer::OnResize(int w, int h)

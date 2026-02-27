@@ -4,6 +4,8 @@
 #include <AquiosEngine/Application.h>
 #include <AquiosEngine/Renderer/Renderer.h>
 
+#include <AquiosEngine/Platform/OpenGL/OpenGLTexture.h>
+
 #include <glm/gtc/matrix_transform.hpp>
 
 void Aquios::Renderer2D::Init(Renderer* renderer)
@@ -60,10 +62,21 @@ void Aquios::Renderer2D::Init(Renderer* renderer)
 
 	m_QuadShaders = m_Renderer->CreatePipeline(pipelineSpec);
 
+	uint8_t pixels[2 * 2 * 4];
+
+	for (int i = 0; i < 2 * 2; i++) {
+		pixels[i * 4 + 0] = 255; 
+		pixels[i * 4 + 1] = 255; 
+		pixels[i * 4 + 2] = 255; 
+		pixels[i * 4 + 3] = 255; 
+	}
+
+	m_QuadDefaultTex = m_Renderer->CreateTexture(Texture::Type::Texture2D, Format::RGBA8, pixels, 2, 2);
+
 	m_InstantCmdList = m_Renderer->CreateCommandList(true);
 }
 
-void Aquios::Renderer2D::DrawQuad(glm::vec4 color, glm::vec3 position, glm::vec3 scale, float rotation)
+void Aquios::Renderer2D::DrawQuad(glm::vec4 color, glm::vec3 position, glm::vec3 scale, float rotation, Texture* tex)
 {
 	Int_QuadInfo info;
 	info.Color = color;
@@ -73,6 +86,15 @@ void Aquios::Renderer2D::DrawQuad(glm::vec4 color, glm::vec3 position, glm::vec3
 
 	auto* camera = m_Renderer->GetCamera();
 	info.MVP = camera->GetProjectionMatrix() * camera->GetViewMatrix() * transform;
+
+	switch (m_Renderer->GetAPI())
+	{
+	case GraphicsAPI::OpenGL:
+	{
+		auto oglTexture = dynamic_cast<OpenGL::OpenGLTexture*>(tex == nullptr ? m_QuadDefaultTex.get() : tex);
+		info.TextureHandle = oglTexture->GetTextureHandle();
+	}
+	}
 
 	m_SubmittedQuads.push_back(info);
 }
@@ -95,4 +117,9 @@ void Aquios::Renderer2D::SubmitBatch()
 void Aquios::Renderer2D::Release()
 {
 	m_InstantCmdList->Release();
+	m_QuadSSBO->Release();
+	m_QuadDefaultTex->Release();
+	m_QuadShaders->Release();
+	m_QuadVertexBuffer->Release();
+	m_QuadIndexBuffer->Release();
 }

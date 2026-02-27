@@ -3,6 +3,9 @@
 #include <fstream>
 #include <filesystem>
 #include <imgui.h>
+#include <AquiosEngine/Input.h>
+
+using Input = Aquios::Input;
 
 class ExampleLayer : public Aquios::Layer
 {
@@ -18,8 +21,12 @@ public:
 		auto& window = app.GetActiveWindow();
 
 		auto renderer2D = renderer.GetRenderer2D();
+		auto camera = renderer.GetCamera();
 
-		renderer2D->DrawQuad({ 1,0,0,1 }, { 0,0,0 }, { 100,100,0 }, rotation);
+		auto mousePos = Input::GetMousePosition();
+		glm::vec3 windowMousePos(mousePos.first - window.GetWidth() / 2.0f, window.GetHeight()/2.0f - mousePos.second, 0.0f);
+
+		renderer2D->DrawQuad({ 1,0,0,1 }, {0, 0, 0}, { 50,50,0 }, rotation);
 		renderer2D->SubmitBatch();
 	}
 
@@ -33,6 +40,7 @@ public:
 		ImGui::Text("Quad Count: %d", renderer->Stats.QuadCount);
 		ImGui::Text("Mesh Count: %d", renderer->Stats.MeshCount);
 		ImGui::Text("Draw Calls: %d", renderer->Stats.DrawCalls);
+		ImGui::Text("Total Texture VRAM: %d bytes", renderer->Stats.TotalTexMem);
 		ImGui::Text("Frame Time: %0.3fms", renderer->GetDeltaTime());
 		ImGui::Text("FPS: %d", renderer->GetFPS());
 

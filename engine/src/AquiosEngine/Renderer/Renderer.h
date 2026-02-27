@@ -5,6 +5,7 @@
 #include <AquiosEngine/Renderer/VertexLayout.h>
 #include <AquiosEngine/Renderer/Pipeline.h>
 #include <AquiosEngine/Renderer/Mesh.h>
+#include <AquiosEngine/Renderer/Texture.h>
 #include <AquiosEngine/Renderer/Camera.h> 
 #include <AquiosEngine/Renderer/Renderer2D.h>
 #include <fstream>
@@ -13,6 +14,14 @@
 namespace Aquios
 {
 	class Window;
+
+	enum class GraphicsAPI
+	{
+		OpenGL,
+		DirectX11, // not supported
+		DirectX12, // not supported
+		Vulkan // not supported
+	};
 
 	class Renderer : public IDestructable
 	{
@@ -25,9 +34,10 @@ namespace Aquios
 
 		struct Statistics
 		{
-			int QuadCount;
-			int MeshCount;
-			int DrawCalls;
+			uint32_t QuadCount;
+			uint32_t MeshCount;
+			uint32_t DrawCalls;
+			uint64_t TotalTexMem;
 		} Stats;
 
 		virtual void Init(GraphicsContext* ctx) = 0;
@@ -41,6 +51,7 @@ namespace Aquios
 		virtual Scope<CommandList> CreateCommandList(bool immediateMode = false) = 0;
 		virtual Scope<Pipeline> CreatePipeline(const PipelineSpec* spec) = 0;
 		virtual Scope<Shader> CreateShader(ShaderType type, std::string source) = 0;
+		virtual Scope<Texture> CreateTexture(Texture::Type type, Format fmt, const void* data, size_t width, size_t height) = 0;
 		virtual Ref<VertexLayout> GetDefaultVertexLayout() = 0;
 		
 		virtual void DrawIndexed(int vertCount) = 0;
@@ -52,6 +63,8 @@ namespace Aquios
 		const float& GetDeltaTime() const { return m_DeltaTime; }
 		const int& GetFPS() const { return m_FPS; }
 		const int& GetFrameCount() const { return m_FrameCount; }
+
+		const GraphicsAPI& GetAPI() const { return m_API; }
 
 		Ref<Renderer2D> GetRenderer2D() const { return m_Renderer2D; }
 
@@ -69,6 +82,8 @@ namespace Aquios
 		Camera* m_Camera = nullptr; // keep as regular ptr
 		Ref<Renderer2D> m_Renderer2D = nullptr;
 		Window* m_ActiveWindow = nullptr;  // keep as regular ptr
+
+		GraphicsAPI m_API;
 
 		float m_DeltaTime = 0.0f;
 		int m_FPS = 0;

@@ -2,6 +2,7 @@
 #include <glm/glm.hpp>
 #include <AquiosEngine/Renderer/GPUBuffer.h>
 #include <AquiosEngine/Renderer/VertexLayout.h>
+#include <AquiosEngine/Renderer/Texture.h>
 #include <AquiosEngine/Renderer/Pipeline.h>
 
 namespace Aquios
@@ -12,6 +13,7 @@ namespace Aquios
 	{
 		glm::vec4 Color;
 		glm::mat4 MVP;
+		uint64_t TextureHandle;
 	};
 
 	class Renderer2D : public IDestructable
@@ -21,7 +23,7 @@ namespace Aquios
 
 		void Init(Renderer* renderer);
 
-		void DrawQuad(glm::vec4 color, glm::vec3 position, glm::vec3 scale, float rotation);
+		void DrawQuad(glm::vec4 color, glm::vec3 position, glm::vec3 scale, float rotation = 0, Texture* tex = nullptr);
 		void SubmitBatch();
 
 		void Release() override;
@@ -32,6 +34,7 @@ namespace Aquios
 		Scope<GPUBuffer> m_QuadVertexBuffer;
 		Scope<GPUBuffer> m_QuadIndexBuffer;
 		Scope<Pipeline> m_QuadShaders;
+		Scope<Texture> m_QuadDefaultTex;
 
 		Scope<CommandList> m_InstantCmdList;
 

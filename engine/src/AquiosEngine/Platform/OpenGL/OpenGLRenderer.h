@@ -25,6 +25,7 @@ namespace Aquios::OpenGL
 		Ref<VertexLayout> GetDefaultVertexLayout() override;
 		Scope<Pipeline> CreatePipeline(const PipelineSpec* spec) override;
 		Scope<Shader> CreateShader(ShaderType type, std::string source) override;
+		Scope<Texture> CreateTexture(Texture::Type type, Format fmt, const void* data, size_t width, size_t height) override;
 	private:
 		Ref<VertexLayout> m_DefaultLayout = nullptr;
 	};
