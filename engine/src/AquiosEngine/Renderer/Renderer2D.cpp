@@ -35,7 +35,9 @@ void Aquios::Renderer2D::Init(Renderer* renderer)
 	m_QuadIndexBuffer->UploadData(quad_indices.data(), idxSize);
 
 	m_SubmittedQuads.reserve(MAX_QUADS_PER_FRAME);
-	m_QuadSSBO = m_Renderer->CreateGPUBuffer(GPUBuffer::Type::StorageBlock, MAX_QUADS_PER_FRAME * sizeof(Int_QuadInfo));
+
+	for(int i = 0; i < MaxFramesInFlight; i++)
+		m_QuadSSBOs.AddBuffer(std::move(m_Renderer->CreateGPUBuffer(GPUBuffer::Type::StorageBlock, MAX_QUADS_PER_FRAME * sizeof(Int_QuadInfo))));
 
 	std::ifstream basic_vifs("engine/assets/shaders/glsl/basic_vs.glsl"); // to-do: reconsider something here potentially, maybe when I got the ShaderLibrary working
 	std::string basic_vsContent((std::istreambuf_iterator<char>(basic_vifs)),
@@ -101,6 +103,8 @@ void Aquios::Renderer2D::DrawQuad(glm::vec4 color, glm::vec3 position, glm::vec3
 
 void Aquios::Renderer2D::SubmitBatch()
 {
+	m_QuadSSBO = m_QuadSSBOs.GetBuffer(m_Renderer->GetFrameIndex());
+
 	m_QuadSSBO->UploadData(m_SubmittedQuads.data(), MAX_QUADS_PER_FRAME * sizeof(Int_QuadInfo));
 
 	m_QuadShaders->Bind(m_InstantCmdList.get());

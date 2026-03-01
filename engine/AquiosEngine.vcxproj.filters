@@ -216,6 +216,12 @@
     <ClInclude Include="src\aqpch.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\AquiosEngine\Platform\Vulkan\VulkanContext.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\Vulkan\VulkanRenderer.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\Vulkan\VKUtils.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\Vulkan\Swapchain.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\Vulkan\GPUImage.h" />
+    <ClInclude Include="src\AquiosEngine\Platform\Vulkan\VulkanGPUBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\vendors\glad\src\glad.c">
@@ -299,5 +305,10 @@
     <ClCompile Include="src\aqpch.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\AquiosEngine\Platform\Vulkan\VulkanContext.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\Vulkan\VulkanRenderer.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\Vulkan\VMABuild.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\Vulkan\Swapchain.cpp" />
+    <ClCompile Include="src\AquiosEngine\Platform\Vulkan\VulkanGPUBuffer.cpp" />
   </ItemGroup>
 </Project>

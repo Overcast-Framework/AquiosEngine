@@ -23,6 +23,8 @@ namespace Aquios
 		Vulkan // not supported
 	};
 
+	constexpr uint32_t MaxFramesInFlight{ 2 };
+
 	class Renderer : public IDestructable
 	{
 	public:
@@ -63,6 +65,7 @@ namespace Aquios
 		const float& GetDeltaTime() const { return m_DeltaTime; }
 		const int& GetFPS() const { return m_FPS; }
 		const int& GetFrameCount() const { return m_FrameCount; }
+		const int& GetFrameIndex() const { return m_CurrentFrameIndex; }
 
 		const GraphicsAPI& GetAPI() const { return m_API; }
 
@@ -88,6 +91,7 @@ namespace Aquios
 		float m_DeltaTime = 0.0f;
 		int m_FPS = 0;
 		int m_FrameCount = 0;
+		int m_CurrentFrameIndex = 0;
 		std::chrono::steady_clock::time_point m_FrameTimer;
 
 		float m_FrameTimeAccumulator = 0.0f;

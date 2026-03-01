@@ -11,6 +11,7 @@ namespace Aquios
 		std::string Title = "AquiosEngine";
 		unsigned int Width = 1280;
 		unsigned int Height = 720;
+		GraphicsAPI RendererAPI = GraphicsAPI::OpenGL;
 	};
 
 	class AQUIOS_API Window : public IEventDispatcher
@@ -22,6 +23,7 @@ namespace Aquios
 			std::string Title;
 			unsigned int Width, Height;
 			bool VSync;
+			GraphicsAPI RendererAPI;
 
 			EventCallbackFn EventCallback;
 		};

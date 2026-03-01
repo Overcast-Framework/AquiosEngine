@@ -38,4 +38,14 @@ namespace Aquios
 
 		virtual void Init() = 0;
 	};
+
+	/// <summary>
+	/// Helper class for using buffers with FIF.
+	/// </summary>
+	class PerFrameBuffers {
+		std::vector<Scope<GPUBuffer>> m_Buffers;
+	public:
+		GPUBuffer* GetBuffer(size_t frameIndex) { return m_Buffers[frameIndex].get(); }
+		void AddBuffer(Scope<GPUBuffer>&& buffer) { m_Buffers.push_back(std::move(buffer)); }
+	};
 }

@@ -29,7 +29,9 @@ namespace Aquios
 		void Release() override;
 	private:
 		std::vector<Int_QuadInfo> m_SubmittedQuads;
-		Scope<GPUBuffer> m_QuadSSBO;
+		GPUBuffer* m_QuadSSBO;
+
+		PerFrameBuffers m_QuadSSBOs;
 
 		Scope<GPUBuffer> m_QuadVertexBuffer;
 		Scope<GPUBuffer> m_QuadIndexBuffer;

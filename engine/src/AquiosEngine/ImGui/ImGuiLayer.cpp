@@ -163,13 +163,20 @@ namespace Aquios
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 
         auto& window = Application::Get().GetWindow();
-        ImGui_ImplGlfw_InitForOpenGL((GLFWwindow*)window.GetWindowHandle(), true);
-        ImGui_ImplOpenGL3_Init("#version 410");
+        if (window.GetRenderer()->GetAPI() == GraphicsAPI::OpenGL)
+        {
+            ImGui_ImplGlfw_InitForOpenGL((GLFWwindow*)window.GetWindowHandle(), true);
+            ImGui_ImplOpenGL3_Init("#version 410");
+        }
 	}
 
 	void ImGuiLayer::OnDetach()
 	{
-        ImGui_ImplOpenGL3_Shutdown();
+        auto& window = Application::Get().GetWindow();
+        if (window.GetRenderer()->GetAPI() == GraphicsAPI::OpenGL)
+        {
+            ImGui_ImplOpenGL3_Shutdown();
+        }
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
 	}
@@ -181,7 +188,11 @@ namespace Aquios
 
     void ImGuiLayer::Begin()
     {
-        ImGui_ImplOpenGL3_NewFrame();
+        auto& window = Application::Get().GetWindow();
+        if (window.GetRenderer()->GetAPI() == GraphicsAPI::OpenGL)
+        {
+            ImGui_ImplOpenGL3_NewFrame();
+        }
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
     }
@@ -193,7 +204,11 @@ namespace Aquios
         io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
         ImGui::Render();
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        auto& window = Application::Get().GetWindow();
+        if (window.GetRenderer()->GetAPI() == GraphicsAPI::OpenGL)
+        {
+            ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+        }
 
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
         {

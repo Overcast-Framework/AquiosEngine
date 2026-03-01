@@ -1,8 +1,11 @@
 #include "aqpch.h"
+#include <vulkan/vulkan.h>
 #include "WindowsWindow.h"
 
 #include <AquiosEngine/Platform/OpenGL/OpenGLContext.h>
 #include <AquiosEngine/Platform/OpenGL/OpenGLRenderer.h>
+#include <AquiosEngine/Platform/Vulkan/VulkanRenderer.h>
+#include <AquiosEngine/Platform/Vulkan/VulkanContext.h>
 
 bool Aquios::Windows::WindowsWindow::s_IsGLFWInitialized;
 
@@ -16,13 +19,26 @@ Aquios::Windows::WindowsWindow::WindowsWindow(const WindowData& data) : Window(d
     }
 
 #ifdef DEBUG
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
+    if(data.RendererAPI == GraphicsAPI::OpenGL)
+        glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 #endif
+
+    if (data.RendererAPI != GraphicsAPI::OpenGL)
+        glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
     this->m_WindowHandle = glfwCreateWindow(data.Width, data.Height, data.Title.c_str(), nullptr, nullptr);
 
-    m_Context = new OpenGL::OpenGLContext(m_WindowHandle);
-    m_Renderer = new OpenGL::OpenGLRenderer();
+    switch (data.RendererAPI)
+    {
+    case GraphicsAPI::OpenGL:
+        m_Context = new OpenGL::OpenGLContext(m_WindowHandle);
+        m_Renderer = new OpenGL::OpenGLRenderer();
+        break;
+    case GraphicsAPI::Vulkan:
+        m_Context = new Vulkan::VulkanContext(m_WindowHandle);
+        m_Renderer = new Vulkan::VulkanRenderer();
+        break;
+    }
 
     m_Renderer->SetActiveWindow(this);
     m_Renderer->Init(m_Context);
@@ -161,7 +177,7 @@ namespace Aquios
 {
     Window* Window::Create(const WindowProperties& props)
     {
-        WindowData winData{ props.Title, props.Width, props.Height };
+        WindowData winData{ props.Title, props.Width, props.Height, true, props.RendererAPI };
         Windows::WindowsWindow* win_window = new Windows::WindowsWindow(winData);
 
         AQ_CORE_INFO("Created Window '{0}' ({1}x{2})", props.Title, props.Width, props.Height);
