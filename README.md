@@ -35,26 +35,27 @@ Requirements:
 
 
 
-# Step 1: Getting the code
+**Step 1: Getting the code**
 
 The latest version of AquiosEngine can be found in the main branch. To properly clone the repository, use
+
 `git clone --recurse-submodules https://github.com/Overcast-Framework/AquiosEngine.git`
 
 
 
-# Step 2: Generating project files
+**Step 2: Generating project files**
 
 **MAKE SURE YOU'VE INSTALLED PREMAKE5 PRIOR TO THIS STEP!**
 
 
 
-Generating project files is simple. Just run the generate\_vs2026.bat file or use `premake5 vs2026` in a terminal.
+Generating project files is simple. Just run the generate_vs2026.bat file or use `premake5 vs2026` in a terminal.
 
 You can then open up the generated solution file in VS2026.
 
 
 
-# Step 3: Compiling the source code
+**Step 3: Compiling the source code**
 
 Inside VS2026, just select the Sandbox project as your startup project and then hit `CTRL+B` to build it or `CTRL+F5` to run it.
 
@@ -67,8 +68,4 @@ That's all!
 
 
 This is an ongoing experimental project focused on learning about game engines and how they work.
-
-
-
-
 
